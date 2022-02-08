@@ -1,90 +1,72 @@
-class Lis:
-    def __init__(self, *args: object) -> None:
-        self.args = list(args)
+class Coordinate:
+    #constructor
+    def __init__(self, *, x: int, y: int, z: int) -> None:
+        self.position = {"x": x, "y": y, "z": z}
 
-    def __getitem__(self, key: int) -> object:
-        return self.args[key]
+    #getting a certain coordinate value
+    def __getitem__(self, key: str) -> int:
+        return self.position[key]
 
-    def __setitem__(self, key: int, value: object) -> None:
-        self.args[key] = value
+    #setting a certain coordinate value to something
+    def __setitem__(self, key: str, value: int) -> None:
+        self.position[key] = value
 
-    def __delitem__(self, key: int) -> None:
-        del self.args[key]
+    #deleting a certain coordinate value
+    def __delitem__(self, key: str) -> None:
+        self.position[key] = 0 
+        #this method automatically sets the coordinate value to 0 instead of deleting it
+        #del a["x"] will set : the value of the x coordinate to 0
 
-    def __reversed__(self) -> object:
-        return Lis(*(self.args[::-1]))
-
-    def __eq__(self, __o: object) -> bool:
-        return self.args == __o.args
-
-    def __lt__(self, __o: object) -> bool:
-        return self.args < __o.args
-
-    def __le__(self, __o: object) -> bool:
-        return self.args <= __o.args
-
-    def __gt__(self, __o: object) -> bool:
-        return self.args > __o.args
-
-    def __ge__(self, __o: object) -> bool:
-        return self.args >= __o.args
-
-    def __ne__(self, __o: object) -> bool:
-        return self.args != __o.args
-
+    #mathematical operations for the Coordinate object 
+    
+    #addition
     def __add__(self, __o: object) -> object:
-        return Lis(*(self.args + __o.args))
+        return Coordinate(
+            x=self.position["x"] + __o.position["x"],
+            y=self.position["y"] + __o.position["y"],
+            z=self.position["z"] + __o.position["z"],
+        )
 
-    def __iadd__(self, __o: object) -> object:
-        self.args += __o.args
+    #subtraction
+    def __sub__(self, __o: object) -> object:
+        return Coordinate(
+            x=self.position["x"] - __o.position["x"],
+            y=self.position["y"] - __o.position["y"],
+            z=self.position["z"] - __o.position["z"],
+        )
 
-    def __mul__(self, __o: int) -> object:
-        return Lis(*(self.args * __o))
+    #multiplication
+    def __mul__(self, __o: object) -> object:
+        return Coordinate(
+            x=self.position["x"] * __o.position["x"],
+            y=self.position["y"] * __o.position["y"],
+            z=self.position["z"] * __o.position["z"],
+        )
 
-    def __imul__(self, __o: int) -> object:
-        self.args *= __o
+    #division or true-division
+    def __truediv__(self, __o: object) -> object:
+        return Coordinate(
+            x=self.position["x"] / __o.position["x"],
+            y=self.position["y"] / __o.position["y"],
+            z=self.position["z"] / __o.position["z"],
+        )
 
-    def __len__(self) -> int:
-        return len(self.args)
+    #floordivision
+    def __floordiv__(self, __o: object) -> object:
+        return Coordinate(
+            x=self.position["x"] // __o.position["x"],
+            y=self.position["y"] // __o.position["y"],
+            z=self.position["z"] // __o.position["z"],
+        )
 
-    def __contains__(self, element: object) -> object:
-        return self.args.__contains__(element)
-
-    def __iter__(self) -> object:
-        return self
-
-    def __str__(self) -> str:
-        return str(self.args).replace("[", "< ").replace("]", " >")
+    #finding the distance of the coordinate from origin
+    def __len__(self) -> float:
+        return int((self.position["x"] ** 2 + self.position["y"] ** 2 + self.position["z"] ** 2) ** 0.5)
 
     def __repr__(self) -> str:
-        return str(self.args).replace("[", "< ").replace("]", " >")
+        return f"({self.position['x']}, {self.position['y']}, {self.position['z']})"
 
-    def copy(self) -> object:
-        return Lis(*(self.args))
 
-    def reverse(self) -> None:
-        self.args = self.args.__reversed__()
-
-    def index(self, element: object) -> int:
-        return self.args.index(element)
-
-    def append(self, element: object) -> None:
-        self.args = self.args.append(element)
-
-    def pop(self, key: int) -> None:
-        self.args = self.args.pop(key)
-
-    def sort(self, *, key: object, reverse: bool) -> None:
-        self.args = (self.args).sort(key=key, reverse=reverse)
-
-    def count(self, element: object) -> int:
-        return self.args.count(element)
-
-    def insert(self, insert: int, element: object) -> None:
-        self.args = self.args.insert(insert, element)
-
-    def remove(self, element: object) -> None:
-        self.args = self.args.remove(element)
-
-    def extend(self, element: object) -> None:
-        self.args = self.args.extend(element)
+a = Coordinate(x=5, y=6, z=7)
+b = Coordinate(x=6, y=7, z=8)
+print(len(a))
