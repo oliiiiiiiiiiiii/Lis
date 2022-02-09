@@ -1,2 +1,5 @@
 # Lis
-THis project is about depression of a 16yr old
+## Learn Internal Stuff
+
+Learn how dunders in python work.
+
