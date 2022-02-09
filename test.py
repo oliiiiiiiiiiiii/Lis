@@ -1,0 +1,17 @@
+from lis import Coordinate
+
+a = Coordinate(x=5, y=6, z=7)
+b = Coordinate(x=-5, y=-6, z=-7)
+c = Coordinate(x=20, y=0, z=-1)
+print(a, b, c)
+print(*map(len, [a, b, c]))
+print(a == b)
+print(a != c)
+print(a > c)
+print(a < c)
+print(a <= b)
+print(a >= c)
+print(a + b)
+print(a - c)
+print(a * b)
+print(a // b)
